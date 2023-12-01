@@ -13,12 +13,7 @@ class Solution(BaseSolution):
         super().__init__(YEAR, DAY, should_read_file=True, is_test=is_test)
 
     def part1(self) -> int:
-        lines = self.data
-        digits = [self.extract_digits_for_part1(line) for line in lines]
-
-        assert len(digits) == len(lines)
-
-        return sum(digits)
+        return sum(self.extract_digits_for_part1(line) for line in self.data)
 
     def extract_digits_for_part1(self, line: str) -> int:
         left, right = 0, len(line) - 1
@@ -33,12 +28,7 @@ class Solution(BaseSolution):
         return int(line[left]) * 10 + int(line[right])
 
     def part2(self) -> int:
-        lines = self.data
-        digits = [self.extract_digits_for_part2(line) for line in lines]
-
-        assert len(digits) == len(lines)
-
-        return sum(digits)
+        return sum(self.extract_digits_for_part2(line) for line in self.data)
 
     def extract_digits_for_part2(self, line: str) -> int:
         digit_indices = [(i, int(val)) for i, val in enumerate(line) if val.isdigit()]
