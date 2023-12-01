@@ -55,6 +55,10 @@ class Solution(BaseSolution):
         return sum(digits)
 
     def find_indices_of_digit_as_word(self, line: str) -> list[Tuple[int, int]]:
+        """
+        Since for part 2, we now allow a subset of written digits
+        as valid digits, we have to search for these exhaustively.
+        """
         indices = []
 
         for i, num in enumerate(DIGITS_AS_STR):
