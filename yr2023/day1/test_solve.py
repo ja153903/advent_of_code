@@ -1,7 +1,10 @@
 from yr2023.day1.solve import Solution
 
-test_solution = Solution(is_test=True)
-solution = Solution()
+YEAR = 2023
+DAY = 1
+
+test_solution = Solution(YEAR, DAY, is_test=True)
+solution = Solution(YEAR, DAY)
 
 
 def test_aoc2023_day1_part1():

@@ -3,14 +3,12 @@ from typing import Tuple
 
 from utils.base_solution import BaseSolution
 
-YEAR = 2023
-DAY = 1
 DIGITS_AS_STR = ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
 
 
 class Solution(BaseSolution):
-    def __init__(self, is_test: bool = False):
-        super().__init__(YEAR, DAY, should_read_file=True, is_test=is_test)
+    def __init__(self, year: int, day: int, is_test: bool = False):
+        super().__init__(year, day, should_read_file=True, is_test=is_test)
 
     def part1(self) -> int:
         return sum(self.extract_digits_for_part1(line) for line in self.data)
