@@ -14,7 +14,7 @@ class Solution(BaseSolution):
 
     def part1(self) -> int:
         lines = self.data
-        parsed_data = []
+        digits = []
 
         for line in lines:
             left, right = 0, len(line) - 1
@@ -28,15 +28,15 @@ class Solution(BaseSolution):
                 if not line[right].isdigit():
                     right -= 1
 
-            parsed_data.append(int(line[left]) * 10 + int(line[right]))
+            digits.append(int(line[left]) * 10 + int(line[right]))
 
-        assert len(parsed_data) == len(lines)
+        assert len(digits) == len(lines)
 
-        return sum(parsed_data)
+        return sum(digits)
 
     def part2(self) -> int:
         lines = self.data
-        parsed_data = []
+        digits = []
 
         for line in lines:
             digit_indices = [
@@ -48,11 +48,11 @@ class Solution(BaseSolution):
 
             fst, lst = digit_indices[0][1], digit_indices[-1][1]
 
-            parsed_data.append(fst * 10 + lst)
+            digits.append(fst * 10 + lst)
 
-        assert len(parsed_data) == len(lines)
+        assert len(digits) == len(lines)
 
-        return sum(parsed_data)
+        return sum(digits)
 
     def find_indices_of_digit_as_word(self, line: str) -> list[Tuple[int, int]]:
         indices = []
