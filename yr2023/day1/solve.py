@@ -14,45 +14,41 @@ class Solution(BaseSolution):
 
     def part1(self) -> int:
         lines = self.data
-        digits = []
-
-        for line in lines:
-            left, right = 0, len(line) - 1
-
-            while (
-                left <= right and not line[left].isdigit() or not line[right].isdigit()
-            ):
-                if not line[left].isdigit():
-                    left += 1
-
-                if not line[right].isdigit():
-                    right -= 1
-
-            digits.append(int(line[left]) * 10 + int(line[right]))
+        digits = [self.extract_digits_for_part1(line) for line in lines]
 
         assert len(digits) == len(lines)
 
         return sum(digits)
+
+    def extract_digits_for_part1(self, line: str) -> int:
+        left, right = 0, len(line) - 1
+
+        while left <= right and not line[left].isdigit() or not line[right].isdigit():
+            if not line[left].isdigit():
+                left += 1
+
+            if not line[right].isdigit():
+                right -= 1
+
+        return int(line[left]) * 10 + int(line[right])
 
     def part2(self) -> int:
         lines = self.data
-        digits = []
-
-        for line in lines:
-            digit_indices = [
-                (i, int(val)) for i, val in enumerate(line) if val.isdigit()
-            ]
-            digit_indices.extend(self.find_indices_of_digit_as_word(line))
-
-            digit_indices.sort(key=lambda t: t[0])
-
-            fst, lst = digit_indices[0][1], digit_indices[-1][1]
-
-            digits.append(fst * 10 + lst)
+        digits = [self.extract_digits_for_part2(line) for line in lines]
 
         assert len(digits) == len(lines)
 
         return sum(digits)
+
+    def extract_digits_for_part2(self, line: str) -> int:
+        digit_indices = [(i, int(val)) for i, val in enumerate(line) if val.isdigit()]
+        digit_indices.extend(self.find_indices_of_digit_as_word(line))
+
+        digit_indices.sort(key=lambda t: t[0])
+
+        fst, lst = digit_indices[0][1], digit_indices[-1][1]
+
+        return fst * 10 + lst
 
     def find_indices_of_digit_as_word(self, line: str) -> list[Tuple[int, int]]:
         """
