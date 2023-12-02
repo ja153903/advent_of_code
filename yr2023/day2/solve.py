@@ -11,7 +11,7 @@ class Ball(TypedDict):
     green: int
 
 
-def empty_ball_state() -> Ball:
+def default_ball_state() -> Ball:
     return {"red": 0, "blue": 0, "green": 0}
 
 
@@ -31,7 +31,7 @@ class Solution(BaseSolution):
         return sum(math.prod(record.values()) for record in balls_by_game_id.values())
 
     def get_balls_by_game_id(self) -> DefaultDict[str, Ball]:
-        balls_by_id = defaultdict(empty_ball_state)
+        balls_by_id = defaultdict(default_ball_state)
 
         for line in self.data:
             left, right = line.split(": ")
