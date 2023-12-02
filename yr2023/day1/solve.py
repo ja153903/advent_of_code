@@ -7,16 +7,6 @@ DIGITS_AS_STR = ("one", "two", "three", "four", "five", "six", "seven", "eight",
 
 
 class Solution(BaseSolution):
-    def __init__(
-        self,
-        year: int,
-        day: int,
-        is_test: bool = False,
-        should_read_file: bool = True,
-        static_puzzle_input: str | None = None,
-    ):
-        super().__init__(year, day, is_test, should_read_file, static_puzzle_input)
-
     def part1(self) -> int:
         return sum(self.extract_digits_for_part1(line) for line in self.data)
 
