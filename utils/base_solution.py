@@ -32,7 +32,7 @@ class BaseSolution(ABC):
 
     def read_file(self) -> list[str]:
         with open(self.pathname, "r") as f:
-            return f.readlines()
+            return f.read().splitlines()
 
     @abstractmethod
     def part1(self):
