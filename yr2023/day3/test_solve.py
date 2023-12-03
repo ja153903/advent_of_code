@@ -8,16 +8,16 @@ solution = Solution(YEAR, DAY)
 
 
 def test_aoc2023_day3_part1_example():
-    assert example_solution.part1() == 0
+    assert example_solution.part1() == 4361
 
 
 def test_aoc2023_day3_part1():
-    assert solution.part1() == 0
+    assert solution.part1() == 533784
 
 
 def test_aoc2023_day3_part2_example():
-    assert example_solution.part2() == 0
+    assert example_solution.part2() == 467835
 
 
 def test_aoc2023_day3_part2():
-    assert solution.part2() == 0
+    assert solution.part2() == 78826761
