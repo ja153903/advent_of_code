@@ -1,4 +1,3 @@
-import re
 from collections import Counter
 from typing import TypedDict
 
@@ -32,7 +31,7 @@ class Solution(BaseSolution):
 
     def get_entry_from_line(self, line: str) -> Entry:
         left, right = line.split(": ")
-        *_, id = re.split(r"\s+", left)
+        *_, id = left.split()
         winning, owned = right.split(" | ")
 
         winning_numbers = self.parse_as_list_int(winning)
@@ -62,4 +61,4 @@ class Solution(BaseSolution):
         return matches
 
     def parse_as_list_int(self, s: str) -> list[int]:
-        return [int(el) for el in re.split("\s+", s.strip())]
+        return [int(el) for el in s.strip().split()]
