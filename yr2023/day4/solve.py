@@ -6,7 +6,7 @@ from utils.base_solution import BaseSolution
 
 
 class Entry(TypedDict):
-    id: str
+    id: int
     winning_numbers: list[int]
     owned_numbers: list[int]
 
@@ -23,11 +23,10 @@ class Solution(BaseSolution):
             entry = self.get_entry_from_line(line)
             freq[entry["id"]] += 1
 
-            entry_id_as_int = int(entry["id"])
             num_matches = self.get_num_matches(entry)
 
             for i in range(1, num_matches + 1):
-                freq[str(entry_id_as_int + i)] += freq[entry["id"]]
+                freq[entry["id"] + i] += freq[entry["id"]]
 
         return sum(freq.values())
 
@@ -40,7 +39,7 @@ class Solution(BaseSolution):
         owned_numbers = self.parse_as_list_int(owned)
 
         return {
-            "id": id,
+            "id": int(id),
             "winning_numbers": winning_numbers,
             "owned_numbers": owned_numbers,
         }
