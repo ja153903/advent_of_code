@@ -52,13 +52,10 @@ class Solution(BaseSolution):
         return 2 ** (matches - 1)
 
     def get_num_matches(self, entry: Entry) -> int:
-        matches = 0
-
-        for num in entry["winning_numbers"]:
-            if num in entry["chosen_numbers"]:
-                matches += 1
-
-        return matches
+        intersection = set(entry["winning_numbers"]).intersection(
+            set(entry["chosen_numbers"])
+        )
+        return len(intersection)
 
     def parse_as_list_int(self, s: str) -> list[int]:
         return [int(el) for el in s.strip().split()]
