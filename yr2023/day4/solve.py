@@ -7,7 +7,7 @@ from utils.base_solution import BaseSolution
 class Entry(TypedDict):
     id: int
     winning_numbers: list[int]
-    owned_numbers: list[int]
+    chosen_numbers: list[int]
 
 
 class Solution(BaseSolution):
@@ -32,15 +32,15 @@ class Solution(BaseSolution):
     def get_entry_from_line(self, line: str) -> Entry:
         left, right = line.split(": ")
         *_, id = left.split()
-        winning, owned = right.split(" | ")
+        winning, chosen = right.split(" | ")
 
         winning_numbers = self.parse_as_list_int(winning)
-        owned_numbers = self.parse_as_list_int(owned)
+        chosen_numbers = self.parse_as_list_int(chosen)
 
         return {
             "id": int(id),
             "winning_numbers": winning_numbers,
-            "owned_numbers": owned_numbers,
+            "chosen_numbers": chosen_numbers,
         }
 
     def get_points(self, entry: Entry) -> int:
@@ -55,7 +55,7 @@ class Solution(BaseSolution):
         matches = 0
 
         for num in entry["winning_numbers"]:
-            if num in entry["owned_numbers"]:
+            if num in entry["chosen_numbers"]:
                 matches += 1
 
         return matches
