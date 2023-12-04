@@ -36,8 +36,8 @@ class Solution(BaseSolution):
         *_, id = re.split(r"\s+", left)
         winning, owned = right.split(" | ")
 
-        winning_numbers = [int(el) for el in re.split("\s+", winning.strip())]
-        owned_numbers = [int(el) for el in re.split("\s+", owned.strip())]
+        winning_numbers = self.parse_as_list_int(winning)
+        owned_numbers = self.parse_as_list_int(owned)
 
         return {
             "id": id,
@@ -61,3 +61,6 @@ class Solution(BaseSolution):
                 matches += 1
 
         return matches
+
+    def parse_as_list_int(self, s: str) -> list[int]:
+        return [int(el) for el in re.split("\s+", s.strip())]
