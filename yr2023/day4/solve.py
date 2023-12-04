@@ -36,8 +36,8 @@ class Solution(BaseSolution):
         *_, id = re.split(r"\s+", left)
         winning, owned = right.split(" | ")
 
-        winning_numbers = list(map(int, re.split("\s+", winning.strip())))
-        owned_numbers = list(map(int, re.split("\s+", owned.strip())))
+        winning_numbers = [int(el) for el in re.split("\s+", winning.strip())]
+        owned_numbers = [int(el) for el in re.split("\s+", owned.strip())]
 
         return {
             "id": id,
@@ -46,11 +46,7 @@ class Solution(BaseSolution):
         }
 
     def get_points(self, entry: Entry) -> int:
-        matches = 0
-
-        for num in entry["winning_numbers"]:
-            if num in entry["owned_numbers"]:
-                matches += 1
+        matches = self.get_num_matches(entry)
 
         if matches == 0:
             return 0
