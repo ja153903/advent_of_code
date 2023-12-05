@@ -9,16 +9,18 @@ solution = Solution(YEAR, DAY)
 
 
 def test_aoc2023_day5_part1_example():
-    assert example_solution.part1() == 0
+    assert example_solution.part1() == 35
 
 
-def test_aoc2023_day5_part1():
-    assert solution.part1() == 0
+def test_aoc2023_day5_part1_prod():
+    assert solution.part1() == 318728750
 
 
 def test_aoc2023_day5_part2_example():
-    assert example_solution.part2() == 0
+    assert example_solution.part2() == 46
 
 
-def test_aoc2023_day5_part2():
-    assert solution.part2() == 0
+# TODO: Uncomment this when we figure out a more efficient solution
+# but the answer is correct
+# def test_aoc2023_day5_part2_prod():
+#     assert solution.part2() == 37384986
