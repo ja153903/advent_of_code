@@ -35,7 +35,7 @@ class RangeDict(UserDict):
 
         for key, value in self.items():
             ostart, oend = key
-            dstart, _dend = value
+            dstart, _ = value
 
             os = max(nstart, ostart)
             oe = min(nend, oend)
