@@ -27,19 +27,31 @@ class RangeDict(UserDict):
 
         return key
 
-    def get_by_interval(self, key: tuple[int, int]) -> list[tuple[int, int]]:
+    def get_by_interval(
+        self, interval: tuple[int, int]
+    ) -> list[tuple[tuple[int, int], bool]]:
         result = []
+        nstart, nend = interval
 
-        for interval in self.keys():
-            # check if the intervals overlap
-            if key[0] <= interval[0]:
-                if interval[0] < key[1]:
-                    result.append(self[interval])
-            else:
-                if key[0] < interval[1]:
-                    result.append(self[interval])
+        for key, value in self.items():
+            ostart, oend = key
+            dstart, _dend = value
 
-        return result if len(result) > 0 else [key]
+            os = max(nstart, ostart)
+            oe = min(nend, oend)
+
+            if os < oe:
+                result.append(((os - ostart + dstart, oe - ostart + dstart), False))
+
+                if os > nstart:
+                    result.append(((nstart, os), True))
+
+                if nend > oe:
+                    result.append(((oe, nend), True))
+
+                break
+
+        return result if len(result) > 0 else [(interval, False)]
 
 
 class Solution(BaseSolution):
@@ -65,11 +77,6 @@ class Solution(BaseSolution):
         return min(self.traverse(seed) for seed in self.parse_sections())
 
     def part2(self):
-        """
-        We can sort locations based on the possible end ranges
-        then trace backwards until we find the appropriate seed range
-        once we have the seed range, we can check if there exists
-        """
         _min = float("inf")
 
         for src, dst in self.parse_sections_for_part2():
@@ -80,6 +87,30 @@ class Solution(BaseSolution):
                 _min = min(_min, current_min)
 
         return _min
+
+    def part2_perf(self):
+        """
+        This solution will contain a lot more interval math rather than the brute forcing with threading
+        that I did before.
+        """
+        seeds = self.parse_sections_for_part2()
+
+        for path in PATH:
+            _dict = self.get_dict(path)
+            next_step = []
+            while seeds:
+                seed = seeds.pop()
+                for next, should_add_to_stack in _dict.get_by_interval(seed):
+                    if should_add_to_stack:
+                        seeds.append(next)
+                    else:
+                        next_step.append(next)
+
+            seeds = next_step
+
+        seeds = sorted(seeds)
+
+        return seeds[0][0]
 
     def traverse(self, seed: int) -> int:
         current = seed
@@ -124,8 +155,6 @@ class Solution(BaseSolution):
         for entry in entries:
             dst, src, _len = list(map(int, entry.split()))
             _dict[(src, src + _len - 1)] = (dst, dst + _len - 1)
-
-        print(_dict)
 
     def get_dict(self, type: str) -> DefaultDict[int, int]:
         match type:

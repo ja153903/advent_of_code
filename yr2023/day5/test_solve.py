@@ -20,6 +20,14 @@ def test_aoc2023_day5_part2_example():
     assert example_solution.part2() == 46
 
 
+def test_aoc2023_day5_part2_example_perf():
+    assert example_solution.part2_perf() == 46
+
+
+def test_aoc2023_day5_part2_prod_perf():
+    assert solution.part2_perf() == 37384986
+
+
 # TODO: Uncomment this when we figure out a more efficient solution
 # but the answer is correct
 # def test_aoc2023_day5_part2_prod():
